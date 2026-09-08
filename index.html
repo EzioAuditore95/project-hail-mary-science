@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#090d16" />
+  <meta name="description" content="Un percorso interattivo nella fisica, astronomia e astrobiologia dietro Project Hail Mary." />
+  <title>Project Hail Mary — Science Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="starfield" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Project Hail Mary Science Lab">
+      <span class="brand-mark">PHM</span>
+      <span>Science Lab</span>
+    </a>
+    <nav class="top-nav" aria-label="Navigazione principale">
+      <a href="#modules">Moduli</a>
+      <a href="#lab">Laboratorio</a>
+      <a href="#quiz">Quiz</a>
+    </nav>
+    <div class="spoiler-control">
+      <label for="spoilerMode">Spoiler</label>
+      <select id="spoilerMode">
+        <option value="light">Minimi</option>
+        <option value="medium">Moderati</option>
+        <option value="full">Completi</option>
+      </select>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell">
+      <div class="hero-copy">
+        <p class="eyebrow">ASTROFISICA · RELATIVITÀ · ASTROBIOLOGIA</p>
+        <h1>La scienza dietro <em>Project Hail Mary</em></h1>
+        <p class="hero-lead">Un percorso interattivo per distinguere ciò che nel romanzo è fisica reale, estrapolazione plausibile o invenzione narrativa.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#modules">Inizia il percorso</a>
+          <button class="button ghost" id="randomQuestion" type="button">Domanda casuale</button>
+        </div>
+        <div class="legend" aria-label="Legenda affidabilità scientifica">
+          <span><i class="dot real"></i> Scienza reale</span>
+          <span><i class="dot plausible"></i> Plausibile</span>
+          <span><i class="dot speculative"></i> Speculativo</span>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Schema concettuale del percorso">
+        <svg viewBox="0 0 520 420" role="img" aria-label="Stella, pianeta e traiettoria interstellare">
+          <defs>
+            <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#fff7b2"/>
+              <stop offset="0.45" stop-color="#ffd166"/>
+              <stop offset="1" stop-color="#f59e0b" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="118" cy="196" r="72" fill="url(#sunGlow)" opacity=".95"/>
+          <circle cx="118" cy="196" r="35" class="sun-core"/>
+          <ellipse cx="285" cy="210" rx="190" ry="108" class="orbit"/>
+          <circle cx="395" cy="278" r="18" class="planet"/>
+          <path d="M157 175 C245 125, 343 122, 443 61" class="trajectory"/>
+          <circle cx="443" cy="61" r="6" class="ship"/>
+          <text x="60" y="305">ENERGIA</text>
+          <text x="279" y="102">VIAGGIO</text>
+          <text x="364" y="337">VITA</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="progress-section section-shell" aria-label="Progresso">
+      <div class="progress-copy"><strong id="progressLabel">0/6 moduli esplorati</strong><span>Il progresso resta salvato su questo dispositivo.</span></div>
+      <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+      <button id="resetProgress" class="text-button" type="button">Azzera</button>
+    </section>
+
+    <section id="modules" class="section-shell content-section">
+      <div class="section-heading">
+        <p class="eyebrow">PERCORSO</p>
+        <h2>Sei problemi scientifici</h2>
+        <p>Ogni modulo parte da un elemento del romanzo e lo ricostruisce dal principio fisico sottostante.</p>
+      </div>
+
+      <div class="module-grid" id="moduleGrid">
+        <article class="module-card" data-module="stellar">
+          <div class="module-index">01</div>
+          <div class="module-meta"><span class="status real">REALE</span><span>Astrofisica</span></div>
+          <h3>Quanto è luminosa una stella?</h3>
+          <p>Corpo nero, legge di Stefan–Boltzmann e flusso radiativo.</p>
+          <button class="module-open" type="button" data-open="stellar">Esplora <span>→</span></button>
+        </article>
+
+        <article class="module-card" data-module="dimming">
+          <div class="module-index">02</div>
+          <div class="module-meta"><span class="status plausible">REALE → PLAUSIBILE</span><span>Astronomia osservativa</span></div>
+          <h3>Come capiamo che una stella si sta oscurando?</h3>
+          <p>Fotometria, spettroscopia e discriminazione tra cause diverse.</p>
+          <button class="module-open" type="button" data-open="dimming">Esplora <span>→</span></button>
+        </article>
+
+        <article class="module-card" data-module="energy">
+          <div class="module-index">03</div>
+          <div class="module-meta"><span class="status speculative">SPECULATIVO</span><span>Energetica</span></div>
+          <h3>Una forma di vita può immagazzinare energia stellare?</h3>
+          <p>Bilanci energetici, densità di energia e limiti fisici.</p>
+          <button class="module-open" type="button" data-open="energy">Esplora <span>→</span></button>
+        </article>
+
+        <article class="module-card" data-module="relativity">
+          <div class="module-index">04</div>
+          <div class="module-meta"><span class="status real">REALE</span><span>Relatività</span></div>
+          <h3>Cosa succede accelerando verso un'altra stella?</h3>
+          <p>Velocità relativistiche, dilatazione temporale e accelerazione costante.</p>
+          <button class="module-open" type="button" data-open="relativity">Esplora <span>→</span></button>
+        </article>
+
+        <article class="module-card" data-module="gravity">
+          <div class="module-index">05</div>
+          <div class="module-meta"><span class="status real">REALE</span><span>Meccanica</span></div>
+          <h3>Come si simula la gravità nello spazio?</h3>
+          <p>Accelerazione centripeta, raggio di rotazione e RPM.</p>
+          <button class="module-open" type="button" data-open="gravity">Esplora <span>→</span></button>
+        </article>
+
+        <article class="module-card" data-module="life">
+          <div class="module-index">06</div>
+          <div class="module-meta"><span class="status plausible">PLAUSIBILE → SPECULATIVO</span><span>Astrobiologia</span></div>
+          <h3>Quanto può essere aliena la vita?</h3>
+          <p>Solventi, metabolismo, atmosfera, selezione naturale e convergenza.</p>
+          <button class="module-open" type="button" data-open="life">Esplora <span>→</span></button>
+        </article>
+      </div>
+    </section>
+
+    <section class="module-detail-wrap" id="moduleDetailWrap" hidden>
+      <div class="section-shell">
+        <article id="moduleDetail" class="module-detail" aria-live="polite"></article>
+      </div>
+    </section>
+
+    <section id="lab" class="section-shell content-section">
+      <div class="section-heading">
+        <p class="eyebrow">LABORATORIO</p>
+        <h2>Manipola le variabili</h2>
+        <p>I simulatori usano modelli fisici semplificati ma quantitativamente coerenti.</p>
+      </div>
+
+      <div class="lab-grid">
+        <article class="lab-card">
+          <div class="lab-head"><span>01</span><h3>Flusso stellare</h3></div>
+          <p>Se la luminosità della stella resta costante, il flusso scala come <code>1 / d²</code>.</p>
+          <label class="range-label" for="distanceSlider"><span>Distanza</span><strong><span id="distanceValue">1.00</span> UA</strong></label>
+          <input id="distanceSlider" type="range" min="0.4" max="5" step="0.01" value="1" />
+          <div class="result-box"><span>Flusso relativo alla Terra</span><strong id="fluxValue">100%</strong><small id="fluxWm">≈ 1361 W/m²</small></div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-head"><span>02</span><h3>Temperatura stellare</h3></div>
+          <p>A raggio costante, la luminosità segue <code>L ∝ T⁴</code>.</p>
+          <label class="range-label" for="tempSlider"><span>Temperatura relativa</span><strong><span id="tempValue">100</span>%</strong></label>
+          <input id="tempSlider" type="range" min="80" max="120" step="1" value="100" />
+          <div class="result-box"><span>Luminosità relativa</span><strong id="luminosityValue">100%</strong><small>Stefan–Boltzmann</small></div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-head"><span>03</span><h3>Gravità artificiale</h3></div>
+          <p>La rotazione produce <code>a = ω²r</code>. Imposta raggio e gravità desiderata.</p>
+          <div class="input-row">
+            <label>Raggio <input id="radiusInput" type="number" min="1" max="500" step="1" value="20" /> m</label>
+            <label>Gravità <input id="gravityInput" type="number" min="0.05" max="2" step="0.05" value="1" /> g</label>
+          </div>
+          <div class="result-box"><span>Velocità di rotazione</span><strong id="rpmValue">6.68 RPM</strong><small id="periodValue">periodo ≈ 9.0 s</small></div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-head"><span>04</span><h3>Accelerazione relativistica</h3></div>
+          <p>Velocità raggiunta mantenendo accelerazione propria costante, ignorando la fase di frenata.</p>
+          <label class="range-label" for="accelYears"><span>Tempo a bordo</span><strong><span id="yearsValue">1.0</span> anni</strong></label>
+          <input id="accelYears" type="range" min="0.1" max="5" step="0.1" value="1" />
+          <label class="range-label" for="accelG"><span>Accelerazione</span><strong><span id="accelValue">1.0</span> g</strong></label>
+          <input id="accelG" type="range" min="0.1" max="1.5" step="0.1" value="1" />
+          <div class="result-box"><span>Velocità finale</span><strong id="relV">77.4% c</strong><small id="relEarth">tempo terrestre ≈ 1.18 anni</small></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="quiz" class="section-shell content-section quiz-section">
+      <div class="section-heading">
+        <p class="eyebrow">CHECKPOINT</p>
+        <h2>Verifica il modello mentale</h2>
+        <p>Otto domande. Le spiegazioni compaiono subito dopo la risposta.</p>
+      </div>
+
+      <div class="quiz-shell">
+        <div class="quiz-progress"><span id="quizCount">1 / 8</span><span id="quizScore">0 punti</span></div>
+        <div class="quiz-bar"><div id="quizBar"></div></div>
+        <h3 id="questionText"></h3>
+        <div id="answerList" class="answer-list"></div>
+        <div id="explanation" class="explanation" hidden></div>
+        <button id="nextQuestion" class="button primary" type="button" hidden>Prossima domanda</button>
+      </div>
+    </section>
+
+    <section class="section-shell verdict-section">
+      <div>
+        <p class="eyebrow">IL METODO</p>
+        <h2>Non chiederti “è vero?”. Chiediti “quale parte è vera?”.</h2>
+      </div>
+      <div class="verdict-grid">
+        <div><span class="status real">REALE</span><p>Leggi, fenomeni o tecniche scientifiche osservate e consolidate.</p></div>
+        <div><span class="status plausible">PLAUSIBILE</span><p>Non osservato direttamente, ma compatibile con ciò che sappiamo.</p></div>
+        <div><span class="status speculative">SPECULATIVO</span><p>Richiede proprietà della materia o della vita non dimostrate.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer section-shell">
+    <p>Progetto educativo indipendente. Non affiliato ad Andy Weir, all'editore o agli adattamenti cinematografici.</p>
+    <p>Modelli semplificati a scopo didattico.</p>
+  </footer>
+
+  <dialog id="quickDialog" class="quick-dialog">
+    <form method="dialog">
+      <button class="dialog-close" aria-label="Chiudi">×</button>
+      <p class="eyebrow">DOMANDA CASUALE</p>
+      <h3 id="quickQuestion"></h3>
+      <div id="quickAnswers" class="answer-list"></div>
+      <div id="quickExplanation" class="explanation" hidden></div>
+    </form>
+  </dialog>
+
+  <script src="./app.js"></script>
+</body>
+</html>
