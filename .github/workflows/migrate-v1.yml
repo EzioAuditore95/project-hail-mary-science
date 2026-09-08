@@ -1,0 +1,39 @@
+name: Migrate PHM Science Lab V1
+
+on:
+  push:
+    paths:
+      - '.github/workflows/migrate-v1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout destination
+        uses: actions/checkout@v4
+
+      - name: Copy V1 from portfolio
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/EzioAuditore95/portfolio.git /tmp/portfolio
+          cp /tmp/portfolio/project-hail-mary-science/index.html ./index.html
+          cp /tmp/portfolio/project-hail-mary-science/styles.css ./styles.css
+          cp /tmp/portfolio/project-hail-mary-science/app.js ./app.js
+          cp /tmp/portfolio/project-hail-mary-science/README.md ./README.md
+          touch .nojekyll
+
+      - name: Commit migrated site
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html styles.css app.js README.md .nojekyll
+          if git diff --cached --quiet; then
+            echo "Nothing to migrate"
+            exit 0
+          fi
+          git commit -m "Migrate Project Hail Mary Science Lab V1"
+          git push
